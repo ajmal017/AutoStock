@@ -102,3 +102,6 @@ ENV/
 
 # project files
 config.py
+
+.idea/
+
