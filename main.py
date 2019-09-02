@@ -70,11 +70,15 @@ def get_action(symbol, price_count):
 def buy(symbol, quantity):
     instrument = robinhood_shell.get_instrument(symbol)
     robinhood_shell.trader.place_buy_order(instrument, quantity)
+    set_last_action(symbol, 'buy')
+    print(f'bought {quantity} share(s) of {symbol}')
 
 
 def sell(symbol, quantity):
     instrument = robinhood_shell.get_instrument(symbol)
     robinhood_shell.trader.place_sell_order(instrument, quantity)
+    set_last_action(symbol, 'sell')
+    print(f'sold {quantity} share(s) of {symbol}')
 
 
 def is_market_open():
