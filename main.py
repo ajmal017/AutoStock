@@ -86,7 +86,7 @@ def is_market_open():
 
 
 def main(symbol, quantity, price_count):
-    action = get_action(symbol)
+    action = get_action(symbol, price_count)
     if action == Action.BUY:
         buy(symbol, quantity)
     elif action == Action.SELL:
@@ -94,4 +94,4 @@ def main(symbol, quantity, price_count):
 
 
 if __name__ == '__main__':
-    main('GRPN', 1, 5)
+    main(symbol='GRPN', quantity=3, price_count=5)
