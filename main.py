@@ -19,7 +19,7 @@ def get_last_action_file(symbol):
 
 
 def set_last_action(symbol, action):
-    file = open(get_last_action_file(symbol), 'w')
+    file = open(get_last_action_file(symbol), 'w+')
     file.write(action)
     file.close()
 
@@ -91,6 +91,7 @@ def main(symbol, quantity, price_count):
         buy(symbol, quantity)
     elif action == Action.SELL:
         sell(symbol, quantity)
+    add_new_price(get_current_price(symbol), symbol)
 
 
 if __name__ == '__main__':
