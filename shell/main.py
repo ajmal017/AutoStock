@@ -1,4 +1,4 @@
-from shell import RobinhoodShell
+from shell.shell import RobinhoodShell
 from enum import Enum
 
 robinhood_shell = RobinhoodShell()

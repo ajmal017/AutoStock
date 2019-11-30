@@ -63,9 +63,26 @@ class Strategy:
     def is_market_open(self, date, symbol='DOW'):
         return len(self.get_raw_prices(symbol, date, date)) != 0
 
+    def get_last_move(self, symbol):
+        file = open('last_moves/' + str(self.__class__.__name__).lower() + '/' + symbol, 'r')
+        text = file.read()
+        file.close()
+        if text == 'buy':
+            return Move.BUY
+        elif text == 'sell':
+            return Move.SELL
+
+    def set_last_move(self, move, symbol):
+        file = open('last_moves/' + str(self.__class__.__name__).lower() + '/' + symbol, 'w+')
+        if move == Move.BUY:
+            file.write('buy')
+        elif move == Move.SELL:
+            file.write('sell')
+        file.close()
+
     def get_current_move(self, symbol):
         date = datetime.now()
-        return self.get_move(self.get_prices(symbol, date, date))
+        return self.get_move(self.get_prices(symbol, date, date), self.get_last_move(symbol))
 
     def get_mock_percentage(self, symbol, start_date, end_date):
         which_price = 'Adj Close'

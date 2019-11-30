@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 
 import cmd, json, re, math
-import pprint
 from Robinhood import Robinhood
 from terminaltables import SingleTable
 from colorclass import Color
 from blessed import Terminal
 from textwrap import wrap
-from config import USERNAME, PASSWORD, CHALLENGE_TYPE
+from shell.config import USERNAME, PASSWORD, CHALLENGE_TYPE
 
 """
 RobinhoodShell builds on Robinhood *unofficial* python library
