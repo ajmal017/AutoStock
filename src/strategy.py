@@ -104,7 +104,17 @@ class Strategy:
                 last_move = Move.SELL
         if last_move == Move.BUY:
             money = prices[-1][which_price]
-        percent = round((money - start_money) / money * 100, 2)
+        percent = round((money - start_money) / start_money * 100, 2)
+        return percent
+
+    def get_hold_percentage(self, symbol, start_date, end_date):
+        which_price = 'Adj Close'
+        prices = self.get_prices(symbol, start_date, end_date)
+        start_money = prices[self.days_back_length][which_price]
+        end_money = prices[-1][which_price]
+        percent = round((end_money - start_money) / start_money * 100, 2)
+        print(start_money)
+        print(end_money)
         return percent
 
     # ABSTRACT METHOD
