@@ -10,6 +10,11 @@ class Strategy:
     # for example, if the only historical data we need is yesterday's price, days_back_length = 1
     days_back_length = 0
 
+    # ABSTRACT METHOD
+    # returns Move.BUY, Move.SELL, or Move.HOLD
+    def get_move(self, prices, last_move, index=-1):
+        pass
+
     @staticmethod
     # date_string in format YYYY-MM-DD
     def get_datetime_object(date_string):
@@ -80,10 +85,6 @@ class Strategy:
             file.write('sell')
         file.close()
 
-    def get_current_move(self, symbol):
-        date = datetime.now()
-        return self.get_move(self.get_prices(symbol, date, date), self.get_last_move(symbol))
-
     def get_mock_percentage(self, symbol, start_date, end_date):
         which_price = 'Adj Close'
         prices = self.get_prices(symbol, start_date, end_date)
@@ -117,7 +118,10 @@ class Strategy:
         print(end_money)
         return percent
 
-    # ABSTRACT METHOD
-    # returns Move.BUY, Move.SELL, or Move.HOLD
-    def get_move(self, prices, last_move, index=-1):
-        pass
+    def get_current_move(self, symbol):
+        now = datetime.now()
+        if not self.is_market_open(now, symbol):
+            return None
+        prices = self.get_prices(symbol, now, now)
+        last_move = self.get_last_move(symbol)
+        return self.get_move(prices, last_move)
