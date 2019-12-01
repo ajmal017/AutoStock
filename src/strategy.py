@@ -51,12 +51,12 @@ class Strategy:
         multiplier = 4
         days_back_fetch = self.days_back_length * multiplier
         prices = self.get_raw_prices(symbol, start_date - timedelta(days=days_back_fetch), end_date)
-        start_date_index = None
+        start_date_index = 0
         for i in range(len(prices)):
             if prices[i].name.date() >= start_date.date():
                 start_date_index = i
                 break
-        if not start_date_index:
+        if start_date_index != 0:
             return []
         return prices[start_date_index - self.days_back_length:]
 
