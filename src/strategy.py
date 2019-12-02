@@ -124,4 +124,6 @@ class Strategy:
             return None
         prices = self.get_prices(symbol, now, now)
         last_move = self.get_last_move(symbol)
-        return self.get_move(prices, last_move)
+        move = self.get_move(prices, last_move)
+        self.set_last_move(move, symbol)
+        return move
