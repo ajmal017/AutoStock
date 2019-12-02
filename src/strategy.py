@@ -69,7 +69,7 @@ class Strategy:
         return len(self.get_raw_prices(symbol, date, date)) != 0
 
     def get_last_move(self, symbol):
-        file = open('last_moves/' + str(self.__class__.__name__).lower() + '/' + symbol, 'r')
+        file = open('last_moves/' + str(self.__class__.__name__).lower() + '/' + symbol + '.txt', 'r')
         text = file.read()
         file.close()
         if text == 'buy':
@@ -78,7 +78,7 @@ class Strategy:
             return Move.SELL
 
     def set_last_move(self, move, symbol):
-        file = open('last_moves/' + str(self.__class__.__name__).lower() + '/' + symbol, 'w+')
+        file = open('last_moves/' + str(self.__class__.__name__).lower() + '/' + symbol + '.txt', 'w+')
         if move == Move.BUY:
             file.write('buy')
         elif move == Move.SELL:
