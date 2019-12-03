@@ -85,9 +85,10 @@ class Strategy:
             file.write('sell')
         file.close()
 
-    def get_mock_percentage(self, symbol, start_date, end_date):
+    def get_mock_percentage(self, symbol, start_date, end_date, prices=None):
         which_price = 'Adj Close'
-        prices = self.get_prices(symbol, start_date, end_date)
+        if prices is None:
+            prices = self.get_prices(symbol, start_date, end_date)
         last_move = Move.SELL
         has_bought = False
         start_money = 0
@@ -105,7 +106,10 @@ class Strategy:
                 last_move = Move.SELL
         if last_move == Move.BUY:
             money = prices[-1][which_price]
-        percent = round((money - start_money) / start_money * 100, 2)
+        if start_money > 0:
+            percent = round((money - start_money) / start_money * 100, 2)
+        else:
+            percent = 0  # never bought
         return percent
 
     def get_hold_percentage(self, symbol, start_date, end_date):
