@@ -56,12 +56,12 @@ class Strategy:
         multiplier = 4
         days_back_fetch = self.days_back_length * multiplier
         prices = self.get_raw_prices(symbol, start_date - timedelta(days=days_back_fetch), end_date)
-        start_date_index = 0
+        start_date_index = None
         for i in range(len(prices)):
             if prices[i].name.date() >= start_date.date():
                 start_date_index = i
                 break
-        if start_date_index != 0:
+        if start_date_index is None:
             return []
         return prices[start_date_index - self.days_back_length:]
 
@@ -114,8 +114,6 @@ class Strategy:
         start_money = prices[self.days_back_length][which_price]
         end_money = prices[-1][which_price]
         percent = round((end_money - start_money) / start_money * 100, 2)
-        print(start_money)
-        print(end_money)
         return percent
 
     def get_current_move(self, symbol):
