@@ -96,12 +96,12 @@ class Strategy:
         # don't need to keep track if we have a share or not because of last_move
         for i in range(self.days_back_length, len(prices)):
             move = self.get_move(prices, last_move, i)
-            if move == Move.BUY and last_move == Move.SELL:
+            if move == Move.BUY:
                 if not has_bought:
                     start_money = prices[i][which_price]
                 money = 0
                 last_move = Move.BUY
-            elif move == Move.SELL and last_move == Move.BUY:
+            elif move == Move.SELL:
                 money = prices[i][which_price]
                 last_move = Move.SELL
         if last_move == Move.BUY:
