@@ -1,0 +1,14 @@
+2019-01-01 - 2019-12-03
+
+long,short yields percent%
+
+25,21 yields 8.33%
+26,21 yields 8.33%
+26,23 yields 8.33%
+25,22 yields 5.56%
+25,23 yields 5.56%
+25,24 yields 5.56%
+26,22 yields 5.56%
+26,24 yields 5.56%
+27,24 yields 5.56%
+25,7 yields -9.52%
