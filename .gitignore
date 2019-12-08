@@ -108,3 +108,4 @@ config.py
 # wesley's stuff
 last_moves/
 auth.data
+nohup.out

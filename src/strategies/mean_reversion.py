@@ -1,7 +1,6 @@
 from strategy import Strategy
 from statistics import mean
 from move import Move
-import os
 
 
 class MeanReversion(Strategy):
@@ -35,7 +34,6 @@ class MeanReversion(Strategy):
             short_term_maximum = short_term_maximum if short_term_maximum < long_term else long_term - 1
             for short_term in range(short_term_minimum, short_term_maximum + 1):
                 iterations += 1
-                os.system('clear')
                 print(str(iterations) + ' / ' + str(total_iterations))
                 self.long_term_interval = long_term
                 self.short_term_interval = short_term
@@ -43,7 +41,6 @@ class MeanReversion(Strategy):
                 percent = self.get_mock_percentage(0, 0, 0, prices=prices[long_term_maximum - long_term:])
                 self.add_to_best(long_term, short_term, percent)
         self.write_to_file(directory, start_date, end_date, symbol)
-        os.system('clear')
         print('Done')
 
     @staticmethod
