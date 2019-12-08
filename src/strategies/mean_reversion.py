@@ -39,8 +39,8 @@ class MeanReversion(Strategy):
                 self.short_term_interval = short_term
                 self.days_back_length = long_term
                 percent = self.get_mock_percentage(0, 0, 0, prices=prices[long_term_maximum - long_term:])
-                self.add_to_best(long_term, short_term, percent)
-        self.write_to_file(directory, start_date, end_date, symbol)
+                if self.add_to_best(long_term, short_term, percent):
+                    self.write_to_file(directory, start_date, end_date, symbol)
         print('Done')
 
     @staticmethod
@@ -53,14 +53,18 @@ class MeanReversion(Strategy):
                 count += short_term_maximum - short_term_minimum + 1
         return count
 
+    # returns True if new percent is added
     def add_to_best(self, long_term, short_term, percent):
         if len(self.best_intervals) < self.best_intervals_length:
             self.best_intervals.append((long_term, short_term, percent))
             self.best_intervals.sort(key=lambda x: x[-1], reverse=True)
+            return True
         elif percent > self.best_intervals[-1][-1]:
             self.best_intervals.pop(-1)
             self.best_intervals.append((long_term, short_term, percent))
             self.best_intervals.sort(key=lambda x: x[-1], reverse=True)
+            return True
+        return False
 
     def write_to_file(self, directory, start_date, end_date, symbol):
         file = open(directory + '/' + str(start_date.date()) + '--' + str(end_date.date()) + '.txt', 'w+')
